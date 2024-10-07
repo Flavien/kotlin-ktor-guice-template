@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit
 class AccountService @Inject constructor(
     private val clock: Clock,
     @Named("server.location") private val location: String,
+    @Named("inventory.itemPrice") private val itemPrice: String,
 ) {
     fun account(userToken: AuthToken): AccountDetails {
         return AccountDetails(
@@ -23,7 +24,7 @@ class AccountService @Inject constructor(
 
     fun checkout(userToken: AuthToken, request: CheckoutRequest): CheckoutResponse {
         return CheckoutResponse(
-            totalAmount = 15.0f * request.quantity,
+            totalAmount = itemPrice.toFloat() * request.quantity,
             expectedDelivery = clock.instant().plus(1, ChronoUnit.DAYS).toString(),
             address = "Home address of ${userToken.username}"
         )
