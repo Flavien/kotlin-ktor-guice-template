@@ -21,7 +21,11 @@ fun configureRouting(
     modules: Iterable<Module> = findModules(),
     resources: Iterable<Class<out ApiRouter>> = findResources()
 ) {
-    val injector = Guice.createInjector(modules)
+    val environmentModule = EnvironmentModule(application.environment.config)
+
+    val injector = Guice.createInjector(
+        listOf(environmentModule) + modules
+    )
 
     for (type in resources) {
         val instance: ApiRouter = injector.getInstance(type)

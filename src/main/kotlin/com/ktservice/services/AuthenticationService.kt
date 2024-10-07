@@ -1,7 +1,7 @@
 package com.ktservice.services
 
-import com.ktservice.application.HttpException
 import com.google.inject.Inject
+import com.ktservice.application.HttpException
 import io.ktor.http.Cookie
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall

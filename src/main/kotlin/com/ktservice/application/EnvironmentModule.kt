@@ -1,21 +1,14 @@
-package com.ktservice.modules
+package com.ktservice.application
 
 import com.google.inject.Binder
 import com.google.inject.Key
 import com.google.inject.Module
 import com.google.inject.name.Named
-import com.ktservice.application.ModuleConfiguration
 import io.ktor.server.config.ApplicationConfig
-import io.ktor.server.config.yaml.YamlConfigLoader
 
-@ModuleConfiguration
-class EnvironmentModule : Module {
+class EnvironmentModule(val config: ApplicationConfig) : Module {
     override fun configure(binder: Binder?) {
         requireNotNull(binder)
-
-        val loader = YamlConfigLoader()
-        val config: ApplicationConfig = loader.load(null) ?: return
-
         bindConfig(binder, "", config.toMap())
     }
 
