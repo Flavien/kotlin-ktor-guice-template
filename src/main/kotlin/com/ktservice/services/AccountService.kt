@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit
 class AccountService @Inject constructor(
     private val clock: Clock,
     @Named("server.location") private val location: String,
-    @Named("inventory.itemPrice") private val itemPrice: String,
+    @Named("inventory.itemPrice") private val itemPrice: Int,
 ) {
     fun account(userToken: AuthToken): AccountDetails {
         return AccountDetails(
