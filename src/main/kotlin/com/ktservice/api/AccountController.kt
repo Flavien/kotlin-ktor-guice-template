@@ -6,6 +6,7 @@ import com.ktservice.services.AccountService
 import com.ktservice.services.AuthToken
 import com.ktservice.services.AuthenticationService
 import com.google.inject.Inject
+import com.ktservice.application.ApiController
 import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.routing.Routing
@@ -14,6 +15,7 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
 import kotlinx.serialization.Serializable
 
+@ApiController
 class AccountController @Inject constructor(
     private val authService: AuthenticationService,
     private val accountService: AccountService,

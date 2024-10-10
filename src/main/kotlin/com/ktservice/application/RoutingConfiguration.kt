@@ -12,6 +12,9 @@ import org.reflections.util.ConfigurationBuilder
 @Target(AnnotationTarget.CLASS)
 annotation class ModuleConfiguration
 
+@Target(AnnotationTarget.CLASS)
+annotation class ApiController
+
 interface ApiRouter {
     fun register(app: Application): Routing
 }
@@ -33,18 +36,17 @@ fun configureRouting(
     }
 }
 
-fun findResources(): Iterable<Class<out ApiRouter>> = reflections.getSubTypesOf(ApiRouter::class.java)
+fun findResources(): Iterable<Class<out ApiRouter>> =
+    reflections.getSubTypesOf(ApiRouter::class.java)
+        .filter { it.getDeclaredAnnotation(ApiController::class.java) != null }
 
-fun findModules(): List<Module> {
-    val modules: Set<Class<out Module>> = reflections.getSubTypesOf(Module::class.java)
-
-    return modules
+fun findModules(): List<Module> =
+    reflections.getSubTypesOf(Module::class.java)
         .filter { it.getDeclaredAnnotation(ModuleConfiguration::class.java) != null }
         .map { it.getDeclaredConstructor().newInstance() }
-}
 
 private val reflections = Reflections(
     ConfigurationBuilder()
         .setUrls(ClasspathHelper.forJavaClassPath())
-        .setScanners(Scanners.SubTypes)
+        .setScanners(Scanners.SubTypes, Scanners.TypesAnnotated)
 )

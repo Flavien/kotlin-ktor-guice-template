@@ -16,7 +16,6 @@ class EnvironmentModule(val config: ApplicationConfig) : Module {
         for ((key, value) in config) {
             val path = "$prefix$key"
             when (value) {
-                is List<*> -> binder.bind(Key.get(List::class.java, Named(path))).toInstance(value)
                 is Map<*, *> -> bindConfig(binder, "$path.", value)
                 null -> Unit
                 else -> binder.bind(Key.get(value.javaClass, Named(path))).toInstance(value);
