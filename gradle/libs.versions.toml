@@ -1,6 +1,6 @@
 
 [versions]
-kotlin-version = "2.0.20"
+kotlin-version = "2.0.21"
 ktor-version = "3.0.0"
 guice-version = "7.0.0"
 reflections-version = "0.10.2"

@@ -1,4 +1,4 @@
-package com.ktservice.services
+package com.ktservice.filters
 
 import com.google.inject.Inject
 import com.ktservice.application.HttpException
@@ -9,7 +9,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import kotlinx.serialization.Serializable
 
-class AuthenticationService @Inject constructor() {
+class AuthenticationFilter @Inject constructor() {
     suspend fun authenticate(call: ApplicationCall) {
         val authenticationDetails: AuthenticationDetails = call.receive()
         call.response.cookies.append(
@@ -30,7 +30,7 @@ class AuthenticationService @Inject constructor() {
         val cookie: String? = call.request.cookies["auth"]
 
         if (cookie == null) {
-            throw HttpException(HttpStatusCode.Unauthorized)
+            throw HttpException(HttpStatusCode.Unauthorized, "USER_NOT_AUTHENTICATED")
         } else {
             return AuthToken(cookie, "user")
         }

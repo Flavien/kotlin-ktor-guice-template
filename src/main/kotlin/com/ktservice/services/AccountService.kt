@@ -1,10 +1,11 @@
 package com.ktservice.services
 
+import com.google.inject.Inject
+import com.google.inject.name.Named
 import com.ktservice.api.AccountDetails
 import com.ktservice.api.CheckoutRequest
 import com.ktservice.api.CheckoutResponse
-import com.google.inject.Inject
-import com.google.inject.name.Named
+import com.ktservice.filters.AuthToken
 import java.time.Clock
 import java.time.temporal.ChronoUnit
 
