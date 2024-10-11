@@ -2,10 +2,10 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.20"
+    alias(libs.plugins.kotlin.serialization)
 }
 
-group = "com.example"
+group = "com.ktservice"
 version = "0.0.1"
 
 application {
@@ -21,7 +21,6 @@ repositories {
 
 dependencies {
     implementation(libs.ktor.server.core)
-    implementation(libs.ktor.server.resources)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.netty)
